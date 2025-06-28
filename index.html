@@ -420,20 +420,20 @@
             font-size: 14px;
         }
         
-        @media (max-width: 1024px) {
-            .content-wrapper {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .sidebar {
-                order: -1;
-            }
-            
-            .progress-card, .related-videos {
-                padding: 20px;
-            }
-        }
+@media (max-width: 1024px) {
+    .content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .video-section {
+        order: -1;  /* <-- TAMBAHKAN BARIS INI */
+    }
+    
+    .progress-card, .related-videos {
+        padding: 20px;
+    }
+}
         
         @media (max-width: 768px) {
             .container {
@@ -485,10 +485,6 @@
                 width: 100%;
                 height: 160px;
             }
-            .html {
-                margin-left: auto;
-                margin-right: auto;
-            }
         }
         .btn-quiz {
             background: linear-gradient(135deg, #ff6b35, #ff8c5a);
@@ -500,165 +496,6 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
         }
-        .fullscreen-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #000;
-    z-index: 10000;
-    display: none;
-}
-
-.fullscreen-container.active {
-    display: block;
-}
-
-.fullscreen-video {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-.fullscreen-controls {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    gap: 10px;
-    z-index: 10001;
-}
-
-.fullscreen-btn {
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.fullscreen-btn:hover {
-    background: rgba(0, 0, 0, 0.9);
-}
-
-/* Update video player untuk tombol fullscreen */
-.video-player {
-    position: relative;
-}
-
-.video-controls {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.video-player:hover .video-controls {
-    opacity: 1;
-}
-
-/* Responsive fix untuk course completion notification */
-.course-completion-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(42, 42, 42, 0.95);
-    backdrop-filter: blur(10px);
-    color: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    z-index: 10000;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    max-width: 400px;
-    width: 90%;
-}
-
-.course-completion-modal .completion-icon {
-    font-size: 50px;
-    margin-bottom: 20px;
-    display: block;
-}
-
-.course-completion-modal h3 {
-    margin-bottom: 15px;
-    font-size: 24px;
-}
-
-.course-completion-modal p {
-    margin-bottom: 20px;
-    color: #cccccc;
-}
-
-.course-completion-modal button {
-    background: linear-gradient(135deg, #ff6b35, #ff8c5a);
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.course-completion-modal button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
-}
-
-/* 3. Media query untuk responsive course completion modal */
-@media (max-width: 480px) {
-    .course-completion-modal {
-        width: 95% !important;
-        padding: 20px !important;
-        max-width: none;
-    }
-    
-    .course-completion-modal h3 {
-        font-size: 20px !important;
-    }
-    
-    .course-completion-modal .completion-icon {
-        font-size: 40px !important;
-        margin-bottom: 15px !important;
-    }
-    
-    .course-completion-modal p {
-        font-size: 14px !important;
-        margin-bottom: 15px !important;
-    }
-    
-    .course-completion-modal button {
-        padding: 10px 20px !important;
-        font-size: 14px !important;
-        width: 100%;
-    }
-}
-
-@media (max-width: 320px) {
-    .course-completion-modal {
-        padding: 15px !important;
-    }
-    
-    .course-completion-modal h3 {
-        font-size: 18px !important;
-    }
-    
-    .course-completion-modal .completion-icon {
-        font-size: 35px !important;
-    }
-    
-    .course-completion-modal p {
-        font-size: 13px !important;
-    }
-}
     </style>
 </head>
 <body>
@@ -697,14 +534,7 @@
                 </div>
 
 <!-- Fullscreen container -->
-                <div class="fullscreen-container" id="fullscreenContainer">
-                    <div class="fullscreen-controls">
-                        <button class="fullscreen-btn" onclick="exitFullscreen()">
-                            ✕ Keluar Fullscreen
-                        </button>
-                    </div>
-                </div>
-                
+
                 <div class="video-info">
                     <h2 class="video-title" id="videoTitle">Pilih video untuk memulai pembelajaran</h2>
                     
@@ -796,7 +626,7 @@ const videoData = {
             tags: ['Matematika', 'Nilai Mutlak', 'Dasar'],
             pdfUrl: '/notes/limit-dasar.pdf',
             completed: false,
-            thumbnail:'Thumb Representasi Geometri Dari Nilai Mutlak.png',
+            thumbnail:'Thumb Representasi geometri dari nilai mutlak.png',
             quizUrl: 'https://forms.gle/AuWMFTjCp6xMYpgF9',
         },
         {
